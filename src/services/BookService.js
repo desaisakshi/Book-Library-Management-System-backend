@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 class BookService {
   async createBook(authorId, data) {
     const { title, genre, description, isbn, publication_date, cover_image, pdf_url, total_copies } = data;
-    if (!title || !genre) throw new Error('Title and genre are required');
+    if (!title ) throw new Error('Title and genre are required');
     if (isbn && await Book.findOne({ where: { isbn } })) throw new Error('ISBN already exists');
 
     const copies = parseInt(total_copies, 10) || 0;
@@ -36,7 +36,6 @@ class BookService {
         { description: { [Op.iLike]: `%${search}%` } }
       ];
     }
-    if (genre) where.genre = genre;
     if (author) where.author_id = author;
     if (minRating) where.average_rating = { [Op.gte]: parseFloat(minRating) };
 

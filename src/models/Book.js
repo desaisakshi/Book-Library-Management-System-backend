@@ -5,7 +5,7 @@ const Book = sequelize.define('Book', {
   id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   author_id: { type: DataTypes.UUID, allowNull: false },
   title: { type: DataTypes.STRING(255), allowNull: false },
-  genre: { type: DataTypes.STRING(100), allowNull: false },
+  genre: { type: DataTypes.STRING(100), allowNull: true },
   description: { type: DataTypes.TEXT, allowNull: true },
   isbn: { type: DataTypes.STRING(20), unique: true, allowNull: true },
   publication_date: { type: DataTypes.DATE, allowNull: true },

@@ -3,6 +3,10 @@ const ok = (res, data, code = 200) => res.status(code).json({ success: true, dat
 const err = (res, e, code = 400) => res.status(code).json({ success: false, message: e.message });
 
 class AuthorController {
+  async getAllAuthors(req, res) { try { ok(res, await authorService.getAllAuthors(req.query)); } catch(e) { err(res, e); } }
+  async createAuthor(req, res) { try { ok(res, await authorService.createAuthor(req.body), 201); } catch(e) { err(res, e); } }
+  async updateAuthor(req, res) { try { ok(res, await authorService.updateAuthor(req.params.id, req.body)); } catch(e) { err(res, e); } }
+  async deleteAuthor(req, res) { try { ok(res, await authorService.deleteAuthor(req.params.id)); } catch(e) { err(res, e); } }
   async getAuthorProfile(req, res) { try { ok(res, await authorService.getAuthorProfile(req.params.id)); } catch(e) { err(res, e, 404); } }
   async getAuthorBooks(req, res) { try { ok(res, await authorService.getAuthorBooks(req.params.id, req.query)); } catch(e) { err(res, e); } }
   async getAuthorManuscripts(req, res) { try { ok(res, await authorService.getAuthorManuscripts(req.params.id, req.query)); } catch(e) { err(res, e); } }
